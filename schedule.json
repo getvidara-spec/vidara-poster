@@ -7,6 +7,15 @@
     "media": "media/CoD_G_Unreal.mp4",
     "caption": "the new MW4 map Kill Block looks unreal @callofduty\n#Ad\n#CallOfDuty #MW4 #KillBlock",
     "publish_at": "2026-07-24T13:30:00Z",
-    "status": "scheduled"
+    "status": "done",
+    "results": {
+      "instagram": {
+        "ok": true,
+        "media_id": "18168493870448097",
+        "creation_id": "18072594176438361"
+      }
+    },
+    "errors": {},
+    "published_at": "2026-07-24T13:36:07.014185+00:00"
   }
 ]
