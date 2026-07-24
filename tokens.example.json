@@ -1,0 +1,13 @@
+{
+  "tiktok": {
+    "access_token": "PASTE_FROM_auth_tiktok.py",
+    "refresh_token": "PASTE_FROM_auth_tiktok.py",
+    "access_expires_at": 0,
+    "refresh_expires_at": 0
+  },
+  "instagram": {
+    "access_token": "PASTE_FROM_auth_instagram.py",
+    "expires_at": 0,
+    "ig_user_id": "PASTE_FROM_auth_instagram.py"
+  }
+}

@@ -1,0 +1,5 @@
+# NEVER commit the plaintext tokens — only the encrypted tokens.json.enc
+tokens.json
+__pycache__/
+*.pyc
+.env

@@ -1,0 +1,46 @@
+name: publish-scheduled-posts
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"      # every 15 min (GitHub cron can lag a few min)
+  workflow_dispatch: {}          # lets you run it manually from the Actions tab
+
+concurrency:
+  group: publisher              # never run two copies at once (token safety)
+  cancel-in-progress: false
+
+permissions:
+  contents: write               # to commit schedule.json + tokens.json.enc back
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - run: pip install -r requirements.txt
+
+      - name: Publish anything due
+        env:
+          TOKEN_ENC_KEY:        ${{ secrets.TOKEN_ENC_KEY }}
+          TIKTOK_CLIENT_KEY:    ${{ secrets.TIKTOK_CLIENT_KEY }}
+          TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+          IG_APP_ID:            ${{ secrets.IG_APP_ID }}
+          IG_APP_SECRET:        ${{ secrets.IG_APP_SECRET }}
+        run: python src/run.py
+
+      - name: Commit updated schedule + tokens
+        run: |
+          git config user.name  "vidara-poster-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add schedule.json tokens.json.enc
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "publisher: update status/tokens [skip ci]"
+            git push
+          fi
